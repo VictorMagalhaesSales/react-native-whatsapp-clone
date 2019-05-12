@@ -27,6 +27,20 @@ export const modificaNome = (texto) => ({
     type: MODIFICA_NOME,
     payload: texto
 })
+
+export const loginUsuario = (email, senha) => {
+    return dispatch => {
+        dispatch({type: LOGIN_EM_ANDAMENTO});
+        firebase.auth().signInWithEmailAndPassword('victor@gmail.com', '123456')
+            .then(() => {
+                dispatch({type: LOGIN_USUARIO_SUCESSO});
+                Actions.principal();
+            }, erro => {
+                dispatch({type: LOGIN_USUARIO_ERRO, payload: erro.message})
+            });
+    }
+}
+
 export const cadastraUsuario = (nome, email, senha) => {
     return dispatch => {
 
@@ -38,18 +52,6 @@ export const cadastraUsuario = (nome, email, senha) => {
         }, erro => {
             dispatch({type: CADASTRO_USUARIO_ERRO,  payload: erro.message});
         });
-    }
-}
-export const loginUsuario = (email, senha) => {
-    return dispatch => {
-        dispatch({type: LOGIN_EM_ANDAMENTO});
-        firebase.auth().signInWithEmailAndPassword(email, senha)
-            .then(() => {
-                dispatch({type: LOGIN_USUARIO_SUCESSO});
-                Actions.principal();
-            }, erro => {
-                dispatch({type: LOGIN_USUARIO_ERRO, payload: erro.message})
-            });
     }
 }
 
