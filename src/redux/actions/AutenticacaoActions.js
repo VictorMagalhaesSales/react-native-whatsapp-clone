@@ -1,5 +1,8 @@
 import { Actions } from 'react-native-router-flux';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
+import '@firebase/auth';
+import '@firebase/database';
+import b64 from 'base-64';
 import { 
     MODIFICA_EMAIL,
     MODIFICA_SENHA,
@@ -26,10 +29,12 @@ export const modificaNome = (texto) => ({
 })
 export const cadastraUsuario = (nome, email, senha) => {
     return dispatch => {
+
         dispatch({ type: CADASTRO_EM_ANDAMENTO });
+
         firebase.auth().createUserWithEmailAndPassword(String(email), String(senha))
-        .then(user => {
-            criarPerfilUsuario(user, dispatch);
+        .then(() => {
+            criarPerfilUsuario({nome, email, senha}, dispatch);
         }, erro => {
             dispatch({type: CADASTRO_USUARIO_ERRO,  payload: erro.message});
         });
@@ -49,7 +54,7 @@ export const loginUsuario = (email, senha) => {
 }
 
 const criarPerfilUsuario = (user, dispatch) => {
-    firebase.database().ref(`/perfis/${user.email}`)
+    firebase.database().ref(`/perfis/${b64.encode(user.email)}`)
         .push(user)
             .then(() => {
                 dispatch({type: CADASTRO_USUARIO_SUCESSO});
