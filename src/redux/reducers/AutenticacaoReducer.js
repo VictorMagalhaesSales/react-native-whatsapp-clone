@@ -28,9 +28,9 @@ export default (state = INITIAL_STATE, action) => {
         case MODIFICA_NOME:
             return { ...state, nome: action.payload }
         case CADASTRO_USUARIO_SUCESSO:
-            return { ...state, nome: '', senha: '', loading_cadastro: false }
+            return { ...state, nome: '', senha: '', loading_cadastro: false, erroCadastro: '' }
         case CADASTRO_USUARIO_ERRO:
-            return { ...state, erroCadastro: action.payload, loading_cadastro: false }
+            return { ...state, nome: '', senha: '', email: '', erroCadastro: action.payload, loading_cadastro: false }
         case LOGIN_USUARIO_SUCESSO:
             return { ...state, loading_login: false }
         case LOGIN_USUARIO_ERRO:
