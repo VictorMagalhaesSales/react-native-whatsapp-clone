@@ -1,7 +1,8 @@
 import { 
     MODIFICA_ADICIONA_CONTATO_EMAIL,
     ADICIONA_CONTATO_ERRO,
-    ADICIONA_CONTATO_SUCESSO
+    ADICIONA_CONTATO_SUCESSO,
+    LISTA_CONTATO_USUARIO
 } from '../types';
 
 const INITIAL_STATE = {
@@ -17,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, cadastro_resultado_txt_erro: '', adiciona_contato_email: '' }
         case ADICIONA_CONTATO_ERRO:
             return { ...state, cadastro_resultado_txt_erro: action.payload }
+        case LISTA_CONTATO_USUARIO:
+            return action.payload
         default:
             return state;
     }

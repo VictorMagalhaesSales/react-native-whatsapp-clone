@@ -2,7 +2,7 @@ import { Actions } from 'react-native-router-flux';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import b64 from 'base-64';
-import { MODIFICA_ADICIONA_CONTATO_EMAIL, ADICIONA_CONTATO_ERRO, ADICIONA_CONTATO_SUCESSO } from './../types';
+import { MODIFICA_ADICIONA_CONTATO_EMAIL, ADICIONA_CONTATO_ERRO, ADICIONA_CONTATO_SUCESSO, LISTA_CONTATO_USUARIO } from './../types';
 
 export const modificaAdicionaContatoEmail = (email) => {
     return {
@@ -13,7 +13,7 @@ export const modificaAdicionaContatoEmail = (email) => {
 
 export const adicionaContato = (email) => {
     return dispatch => {
-        firebase.database().ref(`/perfis/${b64.encode(String(email))}`)
+        firebase.database().ref(`/perfis/${b64.encode(email)}`)
             .once('value')
                 .then(snapshot => {
                     if(snapshot.val()) {
@@ -25,9 +25,18 @@ export const adicionaContato = (email) => {
     }
 }
 
+export const listContatosSubscribe = () => {
+    return (dispatch) => {
+        firebase.database().ref(`/perfis/contatos/${b64.encode(firebase.auth().currentUser.email)}/contatos`)
+            .on('value', snapshot => {
+                alert(snapshot.val());
+                dispatch({ type: LISTA_CONTATO_USUARIO, payload: snapshot.val() })
+            })
+    }
+}
+
 const adicionarContatoAoPerfil = (email, dispatch) => {
-    let emailCurrent = b64.encode(firebase.auth().currentUser.email);
-    let contatosDB = firebase.database().ref(`/perfis/`).child(emailCurrent).child('contatos');
+    let contatosDB = firebase.database().ref(`/perfis/`).child(b64.encode(firebase.auth().currentUser.email)).child('contatos');
     contatosDB.once('value')
         .then(snapshot => {
             let listContatos = updateListContatos(snapshot.val(), email, dispatch);

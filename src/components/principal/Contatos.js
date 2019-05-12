@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash'
-import { contatosUsuarioFetch } from '../actions/AppActions';
+import { listContatosSubscribe } from './../../redux/actions/PerfilActions';
 
 
 class Contatos extends Component {
 
     componentWillMount() {
-        //this.props.contatosUsuarioFetch();
+        this.props.listContatosSubscribe();
         this.criaFonteDeDados( this.props.contatos )
     }
 
@@ -18,7 +18,7 @@ class Contatos extends Component {
 
     criaFonteDeDados( contatos ) {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        this.fonteDeDados = ds.cloneWithRows(contatos)
+        this.fonteDeDados = ds.cloneWithRows(contatos ? contatos : {nome: 'a', email: 'b'})
     }
 
     render() {
@@ -39,10 +39,7 @@ class Contatos extends Component {
 }
 
 mapStateToProps = state => {
-    const contatos = _.map(state.ListaContatosReducer, (val, uid) => {
-        return { ...val, uid }
-    })
-    return { contatos }
+
 }
 
-export default connect(mapStateToProps, { contatosUsuarioFetch })(Contatos);
+export default connect(null, { listContatosSubscribe })(Contatos);
