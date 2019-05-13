@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text, ActivityIndicator } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Image, Text, ActivityIndicator, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { modificaEmail, modificaSenha, modificaNome, cadastraUsuario } from './../../redux/actions/AutenticacaoActions'
 
