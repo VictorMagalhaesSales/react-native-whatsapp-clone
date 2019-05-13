@@ -36,10 +36,8 @@ class Contatos extends Component {
     }
 }
 
-mapStateToProps = state => {
-    console.log(state);
-    return {
-    contatos: state.ListaContatosReducer}
-}
+mapStateToProps = state => ({
+    contatos: state.ListaContatosReducer
+})
 
 export default connect(mapStateToProps, { listContatosSubscribe })(Contatos);

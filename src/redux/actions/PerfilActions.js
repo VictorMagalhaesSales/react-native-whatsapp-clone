@@ -30,23 +30,28 @@ export const listContatosSubscribe = () => {
         firebase.database().ref(`/perfis/${b64.encode(firebase.auth().currentUser.email)}/contatos`)
             .on('value', snapshot => {
                 let letContatosDetalhes = [];
-                percorrerContatos(letContatosDetalhes, snapshot, dispatch);
+                percorrerContatos(letContatosDetalhes, snapshot.val(), dispatch);
             })
     }
 }
 
 const percorrerContatos = (letContatosDetalhes, snapshot, dispatch) => {
-    snapshot.val().map(contato => {
-        firebase.database().ref(`/perfis/${b64.encode(contato.email)}`)
-            .once('value')
-                .then(snapshot => {
-                    letContatosDetalhes.push({
-                        nome: snapshot.val().nome,
-                        email: snapshot.val().email
+    console.log(snapshot);
+    if(snapshot) {
+        snapshot.map(contato => {
+            firebase.database().ref(`/perfis/${b64.encode(contato.email)}`)
+                .once('value')
+                    .then(snapshot => {
+                        letContatosDetalhes.push({
+                            nome: snapshot.val().nome,
+                            email: snapshot.val().email
+                        })
+                        dispatch({ type: LISTA_CONTATO_USUARIO, payload: letContatosDetalhes })
                     })
-                    dispatch({ type: LISTA_CONTATO_USUARIO, payload: letContatosDetalhes })
-                })
-    })
+        })
+    } else {
+        dispatch({ type: LISTA_CONTATO_USUARIO, payload: [] })
+    }
 }
 
 const adicionarContatoAoPerfil = (email, dispatch) => {
@@ -88,8 +93,10 @@ const updateListContatos = (listContatos, email, dispatch) => {
                 adicionaNovoEmail = false;
             }
         })
-        if (adicionaNovoEmail) return listContatos.push({email});
-        else return null;
+        if (adicionaNovoEmail) {
+            listContatos.push({email});
+            return listContatos;
+        } else return null;
     } else {
         if (email === firebase.auth().currentUser.email) {
             dispatch({
@@ -102,8 +109,3 @@ const updateListContatos = (listContatos, email, dispatch) => {
         }
     }
 }
-
-
-
-// ELE AINDA ADICIONA O CONTATO DO PRÓPRIO CURRENT USER
-// MENSAGEM DE ERRO DE VERMELHO AO INVÉS DE ALERT
