@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import AutenticacaoReducer from './AutenticacaoReducer';
 import PerfilReducer from './PerfilReducer';
+import AutenticacaoReducer from './AutenticacaoReducer';
+import ListaContatosReducer from './ListaContatosReducer';
 
 export default combineReducers({
     AutenticacaoReducer,
-    PerfilReducer
+    PerfilReducer,
+    ListaContatosReducer
 });

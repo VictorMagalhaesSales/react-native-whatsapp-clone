@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
-import _ from 'lodash'
 import { listContatosSubscribe } from './../../redux/actions/PerfilActions';
 
 
@@ -38,8 +37,8 @@ class Contatos extends Component {
     }
 }
 
-mapStateToProps = state => {
+mapStateToProps = state => ({
+    contatos: state.ListaContatosReducer
+})
 
-}
-
-export default connect(null, { listContatosSubscribe })(Contatos);
+export default connect(mapStateToProps, { listContatosSubscribe })(Contatos);
