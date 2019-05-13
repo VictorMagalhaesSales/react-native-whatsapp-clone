@@ -21,7 +21,7 @@ class formCadastro extends Component {
 
     render() {
         return (
-            <Image style={{ flex: 1 }} source={ require('../../imgs/bg.png')} >
+            <Image style={style.image} source={ require('../../imgs/bg.png')} >
                 <View style={{ flex: 1, padding: 10 }}>
                     <View style={{ flex: 4, justifyContent: 'center' }}>
                         <TextInput placeholder="Nome" style={ style.botao } placeholderTextColor="#FFF"
@@ -48,6 +48,10 @@ class formCadastro extends Component {
 }
 
 const style = StyleSheet.create({
+    image: {
+        flex: 1,
+        width: Dimensions.get('screen').width
+    },
     botao: {
         fontSize: 15, height: 45, borderBottomColor: 'white', borderBottomWidth: .7, color: 'white'
     }

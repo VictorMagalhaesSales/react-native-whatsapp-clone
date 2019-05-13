@@ -19,7 +19,7 @@ class formLogin extends Component {
 
     render() {
         return (
-            <Image style={{ flex: 1 }} source={ require('../../imgs/bg.png')} >
+            <Image style={style.image} source={ require('../../imgs/bg.png')} >
                 <View style={{ alignItems: 'center', marginTop: 30}}>
                     <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold'}}>WhatsApp</Text>
                 </View>
@@ -47,6 +47,10 @@ class formLogin extends Component {
 
 
 const style = StyleSheet.create({
+    image: {
+        flex: 1,
+        width: Dimensions.get('screen').width
+    },
     input: {
         fontSize: 15, height: 45, borderBottomColor: 'white', borderBottomWidth: .7, color: 'white'
     }

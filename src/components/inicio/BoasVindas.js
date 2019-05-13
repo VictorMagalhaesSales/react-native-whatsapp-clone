@@ -1,9 +1,9 @@
 import React from 'react';
 import { Actions } from 'react-native-router-flux';
-import { Button, View, Text, Image, StyleSheet } from 'react-native';
+import { Button, View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 
 export default props => (
-    <Image style={{flex: 1}} source={ require('./../../imgs/bg.png')} >
+    <Image style={style.image} source={ require('./../../imgs/bg.png')} >
         <View style={style.viewPrincipal}>
             <View style={{alignItems: 'center'}}>
                 <Image style={{width: 125, height: 125}} source={require('./../../imgs/logo.png')} />
@@ -17,6 +17,10 @@ export default props => (
 );
 
 const style = StyleSheet.create({
+    image: {
+        flex: 1,
+        width: Dimensions.get('screen').width
+    },
     viewPrincipal: {
         flex: 1,
         flexDirection: 'column',
