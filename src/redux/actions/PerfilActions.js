@@ -36,7 +36,6 @@ export const listContatosSubscribe = () => {
 }
 
 const percorrerContatos = (letContatosDetalhes, snapshot, dispatch) => {
-    console.log(snapshot);
     if(snapshot) {
         snapshot.map(contato => {
             firebase.database().ref(`/perfis/${b64.encode(contato.email)}`)

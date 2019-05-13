@@ -26,8 +26,8 @@ class Contatos extends Component {
                 dataSource={this.fonteDeDados}
                 renderRow={data => (
                         <View style={{ flex: 1, padding: 20, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                            <Text style={{ fontSize: 18 }}>Nome: {data.nome}</Text>
-                            <Text style={{ fontSize: 18 }}>Email: {data.email}</Text>
+                            <Text style={{ fontSize: 25 }}>{data.nome}</Text>
+                            <Text style={{ fontSize: 18 }}>{data.email}</Text>
                         </View>
                     )
                 }
