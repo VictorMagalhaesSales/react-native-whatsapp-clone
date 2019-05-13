@@ -3,7 +3,6 @@ import { View, Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { listContatosSubscribe } from './../../redux/actions/PerfilActions';
 
-
 class Contatos extends Component {
 
     componentWillMount() {
@@ -17,7 +16,7 @@ class Contatos extends Component {
 
     criaFonteDeDados( contatos ) {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        this.fonteDeDados = ds.cloneWithRows(contatos ? contatos : {nome: 'a', email: 'b'})
+        this.fonteDeDados = ds.cloneWithRows(contatos)
     }
 
     render() {
@@ -27,8 +26,8 @@ class Contatos extends Component {
                 dataSource={this.fonteDeDados}
                 renderRow={data => (
                         <View style={{ flex: 1, padding: 20, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                            <Text style={{ fontSize: 25 }}>{data.nome}</Text>
-                            <Text style={{ fontSize: 18 }}>{data.email}</Text>
+                            <Text style={{ fontSize: 18 }}>Nome: {data.nome}</Text>
+                            <Text style={{ fontSize: 18 }}>Email: {data.email}</Text>
                         </View>
                     )
                 }
@@ -37,8 +36,10 @@ class Contatos extends Component {
     }
 }
 
-mapStateToProps = state => ({
-    contatos: state.ListaContatosReducer
-})
+mapStateToProps = state => {
+    console.log(state);
+    return {
+    contatos: state.ListaContatosReducer}
+}
 
 export default connect(mapStateToProps, { listContatosSubscribe })(Contatos);

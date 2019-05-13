@@ -27,12 +27,26 @@ export const adicionaContato = (email) => {
 
 export const listContatosSubscribe = () => {
     return (dispatch) => {
-        firebase.database().ref(`/perfis/contatos/${b64.encode(firebase.auth().currentUser.email)}/contatos`)
+        firebase.database().ref(`/perfis/${b64.encode(firebase.auth().currentUser.email)}/contatos`)
             .on('value', snapshot => {
-                alert(snapshot.val());
-                dispatch({ type: LISTA_CONTATO_USUARIO, payload: snapshot.val() })
+                let letContatosDetalhes = [];
+                percorrerContatos(letContatosDetalhes, snapshot, dispatch);
             })
     }
+}
+
+const percorrerContatos = (letContatosDetalhes, snapshot, dispatch) => {
+    snapshot.val().map(contato => {
+        firebase.database().ref(`/perfis/${b64.encode(contato.email)}`)
+            .once('value')
+                .then(snapshot => {
+                    letContatosDetalhes.push({
+                        nome: snapshot.val().nome,
+                        email: snapshot.val().email
+                    })
+                    dispatch({ type: LISTA_CONTATO_USUARIO, payload: letContatosDetalhes })
+                })
+    })
 }
 
 const adicionarContatoAoPerfil = (email, dispatch) => {
