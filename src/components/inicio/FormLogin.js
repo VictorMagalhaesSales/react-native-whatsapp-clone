@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableHighlight, Image, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableHighlight, Image, ActivityIndicator, Dimensions, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { modificaEmail, modificaSenha, loginUsuario } from './../../redux/actions/AutenticacaoActions'
@@ -21,6 +21,7 @@ class formLogin extends Component {
         return (
             <Image style={style.image} source={ require('../../imgs/bg.png')} >
                 <View style={{ alignItems: 'center', marginTop: 30}}>
+                    <StatusBar backgroundColor="#114D44" />
                     <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold'}}>WhatsApp</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'column', padding: 20}}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text, ActivityIndicator, Dimensions } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Image, Text, ActivityIndicator, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { modificaEmail, modificaSenha, modificaNome, cadastraUsuario } from './../../redux/actions/AutenticacaoActions'
 
@@ -23,6 +23,7 @@ class formCadastro extends Component {
         return (
             <Image style={style.image} source={ require('../../imgs/bg.png')} >
                 <View style={{ flex: 1, padding: 10 }}>
+                <StatusBar backgroundColor="#114D44" />
                     <View style={{ flex: 4, justifyContent: 'center' }}>
                         <TextInput placeholder="Nome" style={ style.botao } placeholderTextColor="#FFF"
                             value={this.props.nome}
