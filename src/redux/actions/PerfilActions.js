@@ -30,23 +30,25 @@ export const listContatosSubscribe = () => {
         firebase.database().ref(`/perfis/${b64.encode(firebase.auth().currentUser.email)}/contatos`)
             .on('value', snapshot => {
                 let letContatosDetalhes = [];
-                percorrerContatos(letContatosDetalhes, snapshot.val(), dispatch);
+                percorrerContatos(letContatosDetalhes, snapshot, dispatch);
             })
     }
 }
 
 const percorrerContatos = (letContatosDetalhes, snapshot, dispatch) => {
-    if(snapshot) {
-        snapshot.map(contato => {
+    if(snapshot.exists) {
+        let qtdContatos = snapshot.numChildren;
+        snapshot.forEach(contato => {
             firebase.database().ref(`/perfis/${b64.encode(contato.email)}`)
                 .once('value')
-                    .then(snapshot => {
-                        letContatosDetalhes.push({
-                            nome: snapshot.val().nome,
-                            email: snapshot.val().email
-                        })
-                        dispatch({ type: LISTA_CONTATO_USUARIO, payload: letContatosDetalhes })
+                .then(usuario => {
+                    letContatosDetalhes.push({
+                        nome: usuario.val().nome,
+                        email: usuario.val().email
                     })
+                    --qtdContatos;
+                    if(!qtdContatos) dispatch({ type: LISTA_CONTATO_USUARIO, payload: letContatosDetalhes })
+                })
         })
     } else {
         dispatch({ type: LISTA_CONTATO_USUARIO, payload: [] })
