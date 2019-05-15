@@ -44,7 +44,6 @@ class Contatos extends Component {
 }
 
 mapStateToProps = state => {
-    console.log(state.ListaContatosReducer);
     return {contatos: state.ListaContatosReducer}
 }
 

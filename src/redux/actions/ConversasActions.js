@@ -5,7 +5,10 @@ import { MODIFICA_MENSAGEM } from '../types';
 
 export const modificaMensagem = (texto) => {
     return dispatch => {
-        console.log(texto);
         dispatch({type: MODIFICA_MENSAGEM, payload: texto});
     }
+}
+
+export const enviaMensagem = () => {
+
 }
