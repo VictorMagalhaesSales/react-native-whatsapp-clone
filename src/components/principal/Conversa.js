@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TextInput, Image, TouchableHighlight, ListView } from 'react-native';
-import { modificaMensagem } from '../../redux/actions/ConversasActions'
+import { modificaMensagem, enviaMensagem } from '../../redux/actions/ConversasActions'
 
 class Conversa extends Component {
 
@@ -76,4 +76,4 @@ mapStateToProps = state => {
     })
 }
 
-export default connect(mapStateToProps, {modificaMensagem})(Conversa)
+export default connect(mapStateToProps, {modificaMensagem, enviaMensagem})(Conversa)
