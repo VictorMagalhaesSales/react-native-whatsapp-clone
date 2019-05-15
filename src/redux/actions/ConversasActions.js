@@ -1,15 +1,13 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import b64 from 'base-64';
-import { MODIFICA_MENSAGEM } from '../types';
+import { MODIFICA_MENSAGEM, ENVIA_MENSAGEM_SUCESSO, LISTA_CONVERSAS_USUARIO } from '../types';
 
 export const modificaMensagem = (texto) => {
     return dispatch => {
         dispatch({type: MODIFICA_MENSAGEM, payload: texto});
     }
 }
-
-
 
 export const enviarMensagem = (mensagem, contatoEmail) => {
     return dispatch => {
@@ -34,12 +32,23 @@ export const enviarMensagem = (mensagem, contatoEmail) => {
     }
 }
 
+export const conversaUsuarioObserver = (contatoEmail) => {
+    return dispatch => {
+        firebase.database().ref(`/conversas/`)
+            .child(b64.encode(firebase.auth().currentUser.email))
+            .child(b64.encode(contatoEmail))
+            .on('value', snapshot => {
+                dispatch({type: LISTA_CONVERSAS_USUARIO, payload: snapshot.val()})
+            })
+    }
+}
+
 const setarMensagens = (conversasEnv, conversasRes, dbConversasEnv, dbConversasRes, dispatch) => {
     dbConversasEnv.set(conversasEnv)
     .then(() => {
         dbConversasRes.set(conversasRes)
             .then(() => {
-                dispatch({type: 'certo'});
+                dispatch({type: ENVIA_MENSAGEM_SUCESSO});
             })
     })
 }

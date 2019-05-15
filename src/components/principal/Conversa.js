@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TextInput, Image, TouchableHighlight, ListView } from 'react-native';
-import { modificaMensagem, enviarMensagem } from '../../redux/actions/ConversasActions'
+import { modificaMensagem, enviarMensagem, conversaUsuarioObserver } from '../../redux/actions/ConversasActions'
 
 import b64 from 'base-64';
 
 class Conversa extends Component {
 
     componentWillMount() {
-        //this.props.conversaUsuarioFetch(this.props.contatoEmail)
-        //this.criaFonteDeDados( this.props.conversa );
+        this.props.conversaUsuarioObserver(this.props.contatoEmail)
+        this.criaFonteDeDados( this.props.conversa );
     }
 
     componentWillReceiveProps(nextProps) {
-        /*if(this.props.contatoEmail != nextProps.contatoEmail) {
-            this.props.conversaUsuarioFetch(nextProps.contatoEmail)
+        if(this.props.contatoEmail != nextProps.contatoEmail) {
+            this.props.conversaUsuarioObserver(nextProps.contatoEmail)
         }
-        this.criaFonteDeDados(nextProps.conversa);*/
+        this.criaFonteDeDados(nextProps.conversa);
     }
 
     criaFonteDeDados( conversa ) {
-        /*const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows( conversa );*/
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.dataSource = ds.cloneWithRows( conversa || []);
     }
 
     _enviarMensagem() {
         const { mensagem, contatoEmail } = this.props;
-        console.log(contatoEmail);
-        console.log(b64.encode(contatoEmail));
         this.props.enviarMensagem(mensagem, contatoEmail)
     }
 
     renderRow(texto) {
-
         if(texto.tipo === 'e') {
             return (
                 <View style={{ alignItems: 'flex-end', marginTop: 5, marginBottom: 5, marginLeft: 40}}>
@@ -40,7 +37,6 @@ class Conversa extends Component {
                 </View>
             )
         }
-
         return (
             <View style={{ alignItems: 'flex-start', marginTop: 5, marginBottom: 5, marginRight: 40}}>
                 <Text style={{ fontSize: 18, color: '#000', padding: 10, backgroundColor: '#f7f7f7', elevation: 1}}>{texto.mensagem}</Text>
@@ -52,21 +48,16 @@ class Conversa extends Component {
         return (
             <View style={{ flex: 1, marginTop: 50, backgroundColor: '#eee4dc', padding: 10 }}>
                 <View style={{ flex: 1, paddingBottom: 20 }}>
-
-                    
+                    <ListView enableEmptySections dataSource={this.dataSource} renderRow={this.renderRow}/>
                 </View>
-
                 <View style={{ flexDirection: 'row', height: 60}}>
                     <TextInput 
                         value={this.props.mensagem}
                         onChangeText={texto => this.props.modificaMensagem(texto) }
-                        style={{ flex: 4, backgroundColor: '#fff', fontSize: 18 }}
-                    />
-
+                        style={{ flex: 4, backgroundColor: '#fff', fontSize: 18 }}/>
                     <TouchableHighlight onPress={this._enviarMensagem.bind(this)} underlayColor="#fff">
                         <Image source={require('../../imgs/enviar_mensagem.png')} />
                     </TouchableHighlight>
-
                 </View>
             </View>
         )
@@ -75,8 +66,9 @@ class Conversa extends Component {
 
 mapStateToProps = state => {
         return ({
+        conversa: state.ListaConversaReducer,
         mensagem: state.ConversasReducer.mensagem
     })
 }
 
-export default connect(mapStateToProps, {modificaMensagem, enviarMensagem})(Conversa)
+export default connect(mapStateToProps, {modificaMensagem, enviarMensagem, conversaUsuarioObserver})(Conversa)
