@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ListView } from 'react-native';
+import { View, Text, ListView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux'
 import { listContatosSubscribe } from './../../redux/actions/PerfilActions';
@@ -21,10 +21,9 @@ class Contatos extends Component {
     }
 
     renderRow(contato) {
+        let contatoObj = { title: contato.nome, contatoNome: contato.nome, contatoEmail: contato.email };
         return (
-            <TouchableHighlight
-                onPress={ () => Actions.conversa({ title: contato.nome, contatoNome: contato.nome, contatoEmail: contato.email }) }
-            >
+            <TouchableHighlight onPress={ () => Actions.conversa(contatoObj)}>
                 <View style={{ flex: 1, padding: 20, borderBottomWidth: 1, borderColor: "#CCC" }}>
                     <Text style={{ fontSize: 25 }}>{contato.nome}</Text>
                     <Text style={{ fontSize: 18 }}>{contato.email}</Text>
@@ -44,8 +43,9 @@ class Contatos extends Component {
     }
 }
 
-mapStateToProps = state => ({
-    contatos: state.ListaContatosReducer
-})
+mapStateToProps = state => {
+    console.log(state.ListaContatosReducer);
+    return {contatos: state.ListaContatosReducer}
+}
 
 export default connect(mapStateToProps, { listContatosSubscribe })(Contatos);
