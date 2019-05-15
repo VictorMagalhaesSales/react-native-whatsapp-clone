@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StatusBar, Image, TouchableHighlight } from 'react-native';
 import { TabBar } from 'react-native-tab-view';
 import { Actions } from 'react-native-router-flux';
+import firebase from '@firebase/app';
+import '@firebase/auth';
 
 export default props => (
     <View style={{ backgroundColor: "#115E54", elevation: 4, marginBottom: 6 }}>
@@ -19,11 +21,18 @@ export default props => (
                         onPress={() => Actions.adicionarContato()}
                         underlayColor="#114D44"
                     >
-                        <Image source={require('../../imgs/adicionar_contato.png')} />
+                        <Image style={{height: 20, width: 20}} source={require('../../imgs/adicionar_contato.png')} />
                     </TouchableHighlight>
                 </View>
                 <View style={{ justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 20, color: '#fff' }}>Sair</Text>
+                    <TouchableHighlight
+                        onPress={() =>
+                            firebase.auth().signOut().then(() =>
+                                Actions.formLogin()
+                            )
+                        }>
+                        <Text style={{ fontSize: 20, color: '#fff' }}>Sair</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         </View>

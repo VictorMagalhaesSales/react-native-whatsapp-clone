@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, ListView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { listarConversasUsuario } from '../../redux/actions/ConversasActions';
+import { listarConversasUsuarioObserver } from '../../redux/actions/ConversasActions';
 
 class Conversas extends Component {
 
     componentWillMount() {
-        this.props.listarConversasUsuario()
+        this.props.listarConversasUsuarioObserver()
         this.criaFonteDeDados(this.props.conversas)
     }
 
     componentWillReceiveProps(nextProps) {
-        his.criaFonteDeDados(nextProps.conversas)
+        this.criaFonteDeDados(nextProps.conversas)
     }
 
     criaFonteDeDados( conversas ) {
@@ -21,9 +21,9 @@ class Conversas extends Component {
     }
 
     renderRow(conversa) {
-        let contatoObj = { title: contato.nome, contatoNome: contato.nome, contatoEmail: contato.email };
+        let conversaObj = { title: conversa.nome, contatoNome: conversa.nome, contatoEmail: conversa.email };
         return (
-            <TouchableHighlight onPress={ () => Actions.conversa(contatoObj)}>
+            <TouchableHighlight onPress={ () => Actions.conversa(conversaObj)}>
                 <View style={{ flex: 1, padding: 20, borderBottomWidth: 1, borderColor: "#ccc" }}>
                     <Text style={{ fontSize: 25 }}>{conversa.nome}</Text>
                 </View>
@@ -48,4 +48,4 @@ mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {listarConversasUsuario})(Conversas)
+export default connect(mapStateToProps, {listarConversasUsuarioObserver})(Conversas)

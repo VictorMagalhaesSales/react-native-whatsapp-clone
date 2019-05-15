@@ -32,7 +32,7 @@ export default (state = INITIAL_STATE, action) => {
         case CADASTRO_USUARIO_ERRO:
             return { ...state, nome: '', senha: '', email: '', erroCadastro: action.payload, loading_cadastro: false }
         case LOGIN_USUARIO_SUCESSO:
-            return { ...state, loading_login: false }
+            return { ...state, ...INITIAL_STATE }
         case LOGIN_USUARIO_ERRO:
             return { ...state, erroLogin: action.payload, loading_login: false }
         case LOGIN_EM_ANDAMENTO:

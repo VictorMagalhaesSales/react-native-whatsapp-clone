@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TextInput, Image, TouchableHighlight, ListView } from 'react-native';
+import { View, Text, TextInput, Image, TouchableHighlight, ListView, Dimensions } from 'react-native';
 import { modificaMensagem, enviarMensagem, conversaUsuarioObserver } from '../../redux/actions/ConversasActions'
 
 import b64 from 'base-64';
@@ -46,20 +46,22 @@ class Conversa extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, marginTop: 50, backgroundColor: '#eee4dc', padding: 10 }}>
-                <View style={{ flex: 1, paddingBottom: 20 }}>
-                    <ListView enableEmptySections dataSource={this.dataSource} renderRow={this.renderRow}/>
-                </View>
-                <View style={{ flexDirection: 'row', height: 60}}>
-                    <TextInput 
-                        value={this.props.mensagem}
-                        onChangeText={texto => this.props.modificaMensagem(texto) }
-                        style={{ flex: 4, backgroundColor: '#fff', fontSize: 18 }}/>
-                    <TouchableHighlight onPress={this._enviarMensagem.bind(this)} underlayColor="#fff">
-                        <Image source={require('../../imgs/enviar_mensagem.png')} />
-                    </TouchableHighlight>
-                </View>
-            </View>
+            <Image style={{flex: 1, width: Dimensions.get('screen').width}} source={ require('../../imgs/bgconversa.jpg')} >
+                <View style={{ flex: 1, marginTop: 50, backgroundColor: '#eee4dc', padding: 10 }}>
+                    <View style={{ flex: 1, paddingBottom: 20 }}>
+                        <ListView enableEmptySections dataSource={this.dataSource} renderRow={this.renderRow}/>
+                    </View>
+                    <View style={{ flexDirection: 'row', height: 60}}>
+                        <TextInput 
+                            value={this.props.mensagem}
+                            onChangeText={texto => this.props.modificaMensagem(texto) }
+                            style={{ flex: 4, backgroundColor: '#fff', fontSize: 18, borderRadius: 50, marginRight: 10, border: 'none'}}/>
+                        <TouchableHighlight onPress={this._enviarMensagem.bind(this)} underlayColor="#fff">
+                            <Image style={{width: 50, height: 50}} source={require('../../imgs/enviar_mensagem.png')} />
+                        </TouchableHighlight>
+                    </View>
+                </View> 
+            </Image>
         )
     }
 }

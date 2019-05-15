@@ -45,7 +45,7 @@ const percorrerContatos = (snapshot, dispatch) => {
                         nome: usuario.val().nome,
                         email: usuario.val().email
                     })
-                    listarContatosUsuarios(--qtdContatos, letContatosDetalhes, dispatch);
+                    emitirListarContatosUsuarios(--qtdContatos, letContatosDetalhes, dispatch);
                 })
         })
     } else {
@@ -53,7 +53,7 @@ const percorrerContatos = (snapshot, dispatch) => {
     }
 }
 
-const listarContatosUsuarios = (qtdContatos, letContatosDetalhes, dispatch) => {
+const emitirListarContatosUsuarios = (qtdContatos, letContatosDetalhes, dispatch) => {
     if(!qtdContatos) dispatch({ type: LISTA_CONTATO_USUARIO, payload: letContatosDetalhes })
 }
 

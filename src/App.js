@@ -20,6 +20,7 @@ class App extends Component {
             messagingSenderId: "394733018142",
             appId: "1:394733018142:web:aaf674376378f7f1"
         });
+        firebase.auth().languageCode = 'br';
     }
 
     render() {
