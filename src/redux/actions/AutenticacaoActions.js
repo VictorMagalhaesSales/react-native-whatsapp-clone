@@ -31,7 +31,7 @@ export const modificaNome = (texto) => ({
 export const loginUsuario = (email, senha) => {
     return dispatch => {
         dispatch({type: LOGIN_EM_ANDAMENTO});
-        firebase.auth().signInWithEmailAndPassword('victor@gmail.com', '123456')
+        firebase.auth().signInWithEmailAndPassword(email, senha)
             .then(() => {
                 dispatch({type: LOGIN_USUARIO_SUCESSO});
                 Actions.principal();

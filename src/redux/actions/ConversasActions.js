@@ -1,7 +1,7 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import b64 from 'base-64';
-import { MODIFICA_MENSAGEM, ENVIA_MENSAGEM_SUCESSO, LISTA_CONVERSAS_USUARIO } from '../types';
+import { MODIFICA_MENSAGEM, ENVIA_MENSAGEM_SUCESSO, LISTA_CONVERSAS_USUARIO, LISTA_CONVERSAS_LISTA_USUARIO } from '../types';
 
 export const modificaMensagem = (texto) => {
     return dispatch => {
@@ -39,6 +39,16 @@ export const conversaUsuarioObserver = (contatoEmail) => {
             .child(b64.encode(contatoEmail))
             .on('value', snapshot => {
                 dispatch({type: LISTA_CONVERSAS_USUARIO, payload: snapshot.val()})
+            })
+    }
+}
+
+export const listarConversasUsuario = () => {
+    return dispatch => {
+        firebase.database().ref(`/conversas/`)
+            .child(b64.encode(firebase.auth().currentUser.email))
+            .on('value', snapshot => {
+                dispatch({type: LISTA_CONVERSAS_LISTA_USUARIO, payload: snapshot.val()});
             })
     }
 }
