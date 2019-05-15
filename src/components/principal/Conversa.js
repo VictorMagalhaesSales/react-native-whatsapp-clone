@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { View, Text, TextInput, Image, TouchableHighlight, ListView } from 'react-native';
 import { modificaMensagem, enviarMensagem } from '../../redux/actions/ConversasActions'
 
+import b64 from 'base-64';
+
 class Conversa extends Component {
 
     componentWillMount() {
@@ -23,9 +25,10 @@ class Conversa extends Component {
     }
 
     _enviarMensagem() {
-        const { mensagem, contatoNome, contatoEmail } = this.props;
-
-        this.props.enviarMensagem(mensagem, contatoNome, contatoEmail)
+        const { mensagem, contatoEmail } = this.props;
+        console.log(contatoEmail);
+        console.log(b64.encode(contatoEmail));
+        this.props.enviarMensagem(mensagem, contatoEmail)
     }
 
     renderRow(texto) {

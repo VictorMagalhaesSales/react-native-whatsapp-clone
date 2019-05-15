@@ -35,7 +35,7 @@ export const listContatosSubscribe = () => {
 }
 
 const percorrerContatos = (snapshot, dispatch) => {
-    if(snapshot.exists) {
+    if(snapshot.exists()) {
         let letContatosDetalhes = [];
         let qtdContatos = snapshot.numChildren();
         snapshot.forEach(contato => {
