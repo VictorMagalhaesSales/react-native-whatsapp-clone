@@ -29,14 +29,14 @@ export const listContatosSubscribe = () => {
     return (dispatch) => {
         firebase.database().ref(`/perfis/${b64.encode(firebase.auth().currentUser.email)}/contatos`)
             .on('value', snapshot => {
-                let letContatosDetalhes = [];
-                percorrerContatos(letContatosDetalhes, snapshot, dispatch);
+                percorrerContatos(snapshot, dispatch);
             })
     }
 }
 
-const percorrerContatos = (letContatosDetalhes, snapshot, dispatch) => {
+const percorrerContatos = (snapshot, dispatch) => {
     if(snapshot.exists) {
+        let letContatosDetalhes = [];
         let qtdContatos = snapshot.numChildren();
         snapshot.forEach(contato => {
             firebase.database().ref(`/perfis/${b64.encode(contato.val().email)}`)
