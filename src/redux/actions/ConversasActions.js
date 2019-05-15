@@ -9,7 +9,7 @@ export const modificaMensagem = (texto) => {
     }
 }
 
-export const enviaMensagem = (texto) => {
+export const enviarMensagem = (texto) => {
     console.log(texto);
     return ({type: 'asd'})
 }
