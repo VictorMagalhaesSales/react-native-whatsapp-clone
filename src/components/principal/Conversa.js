@@ -53,9 +53,9 @@ class Conversa extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', height: 60}}>
                         <TextInput 
-                            value={this.props.mensagem}
+                            value={this.props.mensagem} underlineColorAndroid='transparent'
                             onChangeText={texto => this.props.modificaMensagem(texto) }
-                            style={{ flex: 4, backgroundColor: '#fff', fontSize: 18, borderRadius: 50, marginRight: 10, border: 'none'}}/>
+                            style={{ flex: 4, backgroundColor: '#fff', fontSize: 18, borderRadius: 50, marginRight: 10, height: 50}}/>
                         <TouchableHighlight onPress={this._enviarMensagem.bind(this)} underlayColor="#fff">
                             <Image style={{width: 50, height: 50}} source={require('../../imgs/enviar_mensagem.png')} />
                         </TouchableHighlight>

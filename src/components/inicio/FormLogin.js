@@ -26,11 +26,11 @@ class formLogin extends Component {
                 </View>
                 <View style={{ flex: 1, flexDirection: 'column', padding: 20}}>
                     <View style={{ flex: 2, justifyContent: 'center' }}>
-                        <TextInput placeholder="E-mail" style={ style.input } placeholderTextColor="#FFF"
+                        <TextInput placeholder="E-mail" style={ style.input } placeholderTextColor="#FFF" underlineColorAndroid='transparent'
                             value={this.props.email}
                             onChangeText={texto => this.props.modificaEmail(texto)}
                         />
-                        <TextInput  placeholder="Senha" style={ style.input } secureTextEntry placeholderTextColor="#FFF"
+                        <TextInput  placeholder="Senha" style={ style.input } secureTextEntry placeholderTextColor="#FFF" underlineColorAndroid='transparent'
                             value={this.props.senha}
                             onChangeText={texto => this.props.modificaSenha(texto)}
                         />
